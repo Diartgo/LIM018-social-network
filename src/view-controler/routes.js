@@ -4,6 +4,7 @@ export const changeView = (ruta) => {
   const container = document.getElementById('container');
   container.innerHTML = '';
   switch (ruta) {
+    case '': 
     case '#/login':
     { return container.appendChild(components.login()); }
     break;

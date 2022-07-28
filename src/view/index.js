@@ -5,10 +5,10 @@ import Register from './register.js'
 
 
 const components = {
-    home: Home,
     login: Login,
-    perfil: Perfil,
     register: Register,
+    home: Home,
+    perfil: Perfil
 }
 
 export {components};
