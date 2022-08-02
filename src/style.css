@@ -1,5 +1,5 @@
 .image-perfil{
-    width: 150px;
+    width: 200px;
     height: auto;
     align-items: ;
 }
@@ -8,7 +8,18 @@
     font-family: 'Cantora One', sans-serif;
     color: #927EA0;
     font-size: 32px;
-    Line-height: 15px;
+    Line-height: 3px;
+}
+
+.image-google{
+    width: 25px;
+
+}
+
+.img-conejitos{
+    display: flex;
+    flex-direction: row-reverse;
+
 }
 
 h1{
@@ -26,6 +37,11 @@ h1{
     
 }
 
+.position{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
 
 
 .caja{
@@ -37,6 +53,12 @@ h1{
     border-color: #fffefe;
     margin: 10px;
     text-align: center;
+    border-radius: 5px;
+}
+
+.google-btn{
+    display: flex;
+    justify-content: center;
 }
 
 .bajo-btn{
@@ -44,10 +66,13 @@ h1{
     color: #746D6D;
     font-size: 13px;
 }
+
 .last-line{
     display: flex;
-    align-items: center;
     text-align: center;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
 }
 
 .cajas{
@@ -57,14 +82,19 @@ h1{
 
 }
 .bottongoogle{
+    display: flex;
     background: #EBE5F6;
     border-radius: 5px;
-    width: 200px;
-    height: 100px;
+    width: 150px;
+    height: 50px;
     font-family: 'Blinker', sans-serif;
     font-size: 15px;
     color: #000000;
-    border-color:#EBE5F6;
+    border-color: #EBE5F6;
+    text-align: center;
+    flex-wrap: nowrap;
+    align-items: center;
+    flex-direction: row-reverse;
 
 }
 
