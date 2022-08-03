@@ -1,5 +1,5 @@
 // eslint-disable-next-line import/no-unresolved}
-import {auth, signInWithEmailAndPassword} from "../firebase/auth.js";
+import {auth, signInWithEmailAndPassword, signInWithPopup, provider, getAuth, GoogleAuthProvider } from "../firebase/auth.js";
 export default () => {
     const viewLogin = `
     <h1> InstaPets </h1>
@@ -7,7 +7,6 @@ export default () => {
         <img  class="image-perfil" src="mascotas.png" alt="conejitos"/>
     </figure>
     <div class="google-btn">
-    
     <button class="bottongoogle" id="botongoogle"> <img  class="image-google" src="logoGoogle.png" alt="logogoogle"/> Continuar con Google </button>
     </div>
     <p>--------------------o--------------------</p>
@@ -39,27 +38,63 @@ export default () => {
     const signupEmail = divElem.querySelector('#signup-email');
     const signupPassword = divElem.querySelector('#signup-pass');
     const signupLogin = divElem.querySelector ('#botonLogin')
+    const signUpGoogle = divElem.querySelector ('#botongoogle')
     
-
       signupLogin.addEventListener('click',(e)=> {
         e.preventDefault();
         
         let emailValue = signupEmail.value;
         let passwordValue = signupPassword.value;
 
-        console.log(emailValue,passwordValue);
+        // const auth = getAuth();
+        signInWithEmailAndPassword(auth, emailValue, passwordValue)
+          .then((userCredential) => {
+            // Signed in
 
-        signInWithEmailAndPassword(auth,emailValue,passwordValue)
-        then(userCredential => {
-              console.log(userCredential)
-            })
+            console.log('signUp')
+            const user = userCredential.user;
+            // ...
+            window.location.hash = '#/home';
+          })
+          .catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+          });
 
 
       })
+
+      signUpGoogle.addEventListener('click',(e)=> {
+        e.preventDefault();
+  
+        const auth = getAuth();
+        signInWithPopup(auth, provider)
+        .then((result) => {
+          // This gives you a Google Access Token. You can use it to access the Google API.
+          const credential = GoogleAuthProvider.credentialFromResult(result);
+          const token = credential.accessToken;
+          // The signed-in user info.
+          const user = result.user;       
+          // ...
+          window.location.hash = '#/home'
+          
+        }).catch((error) => {
+          // Handle Errors here.
+          console.log(error.message);
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          // The email of the user's account used.
+          // const email = error.customData.email;
+          // The AuthCredential type that was used.
+          // const credential = GoogleAuthProvider.credentialFromError(error);
+          // ...
+        });
+
+      
+      })
+
     
     return divElem;
-
-
 
 }
 
