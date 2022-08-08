@@ -14,6 +14,9 @@ export const changeView = (ruta) => {
     case '#/home':
     { return container.appendChild(components.home()); }
     break;
+    case '#/publication':
+    { return container.appendChild(components.publication()); }
+    break;
     case '#/perfil':
     { return container.appendChild(components.perfil()); }
     break;
