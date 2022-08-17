@@ -1,7 +1,5 @@
-import { changeView } from './view-controler/routes.js';
+// Este es el punto de entrada de tu aplicacion
 
-const init = () => {
-  changeView(window.location.hash);
-  window.addEventListener('hashchange', () => changeView(window.location.hash));
-};
-window.addEventListener('load', init);
+import { myFunction } from './lib/index.js';
+
+myFunction();
