@@ -13,6 +13,7 @@ export default () => {
     <a class="iconos" href="#/publication"> <img  class="img-home" src="publicar.png" alt="publicar"/> Publicar </a>
     <a class="iconos" href="#/buscar"> <img  class="img-home" src="buscar.png" alt="buscar"/> Buscar </a>
     <a class="iconos" href="#/perfil"> <img  class="img-home" src="perfil.png" alt="publicar"/> Perfil</a>
+    <p>holiii</p>
     </footer>` 
 
     const divElem = document.createElement('div')
