@@ -1,5 +1,6 @@
 export default () => {
     const viewPerfil = `
+        <header class=tit-arriba> InstaPets </header>
         <figure class="text-center">
         <img  class="image-perfil" src="coby.jpg" alt="perfil gato"/>
         </figure>

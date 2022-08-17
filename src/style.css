@@ -120,12 +120,13 @@ footer{
     flex-direction: row;
     justify-content: space-around;
     align-items: center;
+    height: 45px;
     
 }
 
 .img-home{
     width: auto;
-    height: 40px;
+    height: 28px;
 }
 
 .iconos{
@@ -134,6 +135,15 @@ footer{
     justify-content: center;
     font-family: 'Blinker', sans-serif;
     color:black;
-    font-size: 15px;
+    font-size: 12px;
+    
+}
 
+.tit-arriba{
+    background-color: #C3ADD1;
+    font-family: 'Leckerli One', sans-serif;
+    color: #ffffff;
+    font-size: 25px;
+   
+    
 }
