@@ -4,7 +4,7 @@ export default () => {
         <figure class="text-center">
         <img  class="image-perfil" src="coby.jpg" alt="perfil gato"/>
         </figure>
-        <h2 class="text-center">Mocca</h2>
+        <h2 class="text-center">Mochi Miau</h2>
         <h4 class="text-center">Lima - Barranco</h4>
         <footer class="menu-abajo">
         <a class="iconos" href="#/home"><img  class="img-home" src="home.png" alt="perfil"/> Home </a> 
