@@ -50,7 +50,7 @@ export default () => {
         signInWithEmailAndPassword(auth, emailValue, passwordValue)
           .then((userCredential) => {
             // Signed in
-
+           
             console.log('signUp')
             const user = userCredential.user;
             // ...

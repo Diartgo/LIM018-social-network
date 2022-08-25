@@ -1,6 +1,6 @@
 import {getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signInWithPopup, sendEmailVerification, GoogleAuthProvider} from 'https://www.gstatic.com/firebasejs/9.9.1/firebase-auth.js';
 import {app} from './configuration.js'
-import { getFirestore, collection, addDoc, getDoc, onSnapshot, query, orderBy, doc, deleteDoc} from 'https://www.gstatic.com/firebasejs/9.9.1/firebase-firestore.js';
+import { getFirestore, collection, addDoc, getDoc, onSnapshot, query, orderBy, doc, deleteDoc, updateDoc} from 'https://www.gstatic.com/firebasejs/9.9.1/firebase-firestore.js';
 
 export const auth = getAuth(app);
    
@@ -20,8 +20,16 @@ export const getPost = (elem) => onSnapshot(collection(db, 'publi'), (elem) );
 
 export const deletePost = (id) => deleteDoc(doc(db, 'publi', id));
 
-export const editPost = (id) => getDoc(collection(db, 'publi'), id);
+export const editPost = (id) => getDoc(doc(db, 'publi', id));
 
+export const updatePost = (idPost, textoDelPost) => {
+   updateDoc(doc(db, 'publi', idPost), {
+      publi: textoDelPost
+   });
+ };
+
+//  updatePost("GhAA1UKTIMnxt8iij4EH","Cambiando el textoo");
+ 
 
 // Likes de Posts
 // export const postLikes = async (idPost, dataLikes) => {

@@ -1,4 +1,4 @@
-import {getPost, deletePost, creaPost, editPost} from '../firebase/auth.js'
+import {getPost, deletePost, creaPost, editPost, updatePost} from '../firebase/auth.js'
 export default () => {
     const viewHome = `
     <header class=tit-arriba> InstaPets </header>
@@ -44,7 +44,7 @@ export default () => {
     getPost((callback)=>{
       const mostrarPublis = document.querySelector("#publicaciones");
         callback.forEach(element => {
-            console.log(element.data())
+            // console.log(element.data())
             const divPost = `
           <div class="datos-usuario">
             <img  class="perfil-post" src="coby.jpg" alt="perfil gato"/>
@@ -52,10 +52,11 @@ export default () => {
             <p class="tiempo">Hace 1 dia</p>
           </div>
             <div class="post-nuevo">
-              <p class="texto-post"> ${element.data().publi} </p>     
+              <p id="${element.id}" class="texto-post"> ${element.data().publi} </p> 
+              <button id="button${element.id}" style="display:none"> Guardar </button>   
               <div class="iconos-edit">
                   <img class="editar-post" data-post-id="${element.id}" src="editar.png" "alt=post editar"/> 
-                  <img class="borrar-post" data-post-id="${element.id}" src="eliminar.png" "alt=tachito"/> 
+                  <img class="borrar-post" data-post-id="${element.id}" src="eliminar.png" "alt=tachito"/>              
               </div>
             </div>
             <p class="cantidad-likes">
@@ -84,19 +85,37 @@ export default () => {
         //editando post
 
         document.querySelectorAll('.editar-post').forEach(btn => {
-          btn.addEventListener('click', async(e) => {
-            const doc = await editPost(e.target.dataset.id)
-            const task = doc.data()
+          btn.addEventListener('click', (e) => {
+            console.log(e.target.dataset.postId)
+            // editPost(e.target.dataset.postId).then((doc)=>{
+      
+            const traerEditPost=document.querySelector(`#${e.target.dataset.postId}`)
+            // const task = doc.data()
+            console.log(traerEditPost)
+            traerEditPost.contentEditable = 'true';
+            traerEditPost.focus();
 
-            postform['caja'].value = task.caja
+            const btnGuardarPost=document.querySelector(`#button${e.target.dataset.postId}`)
+         
+            btnGuardarPost.style.display="block";
+            btnGuardarPost.addEventListener('click',()=>{
+              updatePost(e.target.dataset.postId,traerEditPost.textContent);
+              btnGuardarPost.style.display="none";
+            })
+            // traerEditPost.addEventListener('keyup',(e)=>{
+            //   updatePost('e.target.dataset.postId', 'keyup')
+            // })
+
+            // postform['caja'].value = doc.caja
 
             console.log('estas editando el post')
           //  const postId = event.target.dataset.postId
             // editPost(postId).then(() => {
             //   console.log('se ha editadoel post con el id: ', postId)
             // })
+            })
           })
-        })
+        
 
     })
 

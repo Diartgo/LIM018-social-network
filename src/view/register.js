@@ -52,6 +52,7 @@ export default () => {
     
         createUserWithEmailAndPassword(auth, emailregValue, passregValue)
         .then((userCredential) => {
+            //crear mi coleccion de usuarios , le pasare el nameValue
             // Signed in
             const user = userCredential.user;
             // ...
