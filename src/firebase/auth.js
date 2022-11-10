@@ -13,7 +13,7 @@ export {signInWithEmailAndPassword, createUserWithEmailAndPassword, signInWithPo
 export const db = getFirestore(app);
 
 export const creaPost = (publi) => {
-   addDoc(collection(db,'publi'), {publi: publi});
+   addDoc(collection(db,'publi'), {publi}, );
 };
 
 export const getPost = (elem) => onSnapshot(collection(db, 'publi'), (elem) );

@@ -1,4 +1,9 @@
 import {getPost, deletePost, creaPost, editPost, updatePost} from '../firebase/auth.js'
+
+// creando la variable para almacenar los likes
+//  let postLikesContar = ['q3l0m6GrlVQHoRXjnwJn5LnxfRr2', 'QFNXzMxf03NWPa1TYuyrhrd5j4e2', 'GilkuJptwvPNfSbTbvWIhM9eLWm1'];
+
+
 export default () => {
     const viewHome = `
     <header class=tit-arriba> InstaPets </header>
@@ -38,84 +43,132 @@ export default () => {
     
 };
 
-  
-    // function mostrar los post
 
-    getPost((callback)=>{
+  // ocultando iconos para editar
+      // function ocultandoIconos (){
+      //  const bntEditDelet = document.querySelectorAll('.iconos-edit')
+      //  bntEditDelet.forEach(element=> {
+      //     if (btnMenu.classList.contains('show-icono')) { // class show.menu
+      //       btnMenu.classList.remove('show-icono');
+      //     } else {
+      //       btnMenu.classList.add('show-icono');
+      //     }
+      //   })
+      //  }
+  
+  // function mostrar los post
+
+    getPost((postsnapshot)=>{
       const mostrarPublis = document.querySelector("#publicaciones");
-        callback.forEach(element => {
+      postsnapshot.forEach(element => {
             // console.log(element.data())
             const divPost = `
           <div class="datos-usuario">
             <img  class="perfil-post" src="coby.jpg" alt="perfil gato"/>
             <p> <b>  Mochi Miau </b> </p>
-            <p class="tiempo">Hace 1 dia</p>
+            <p class="tiempo">Hace 2 min</p>
           </div>
             <div class="post-nuevo">
               <p id="${element.id}" class="texto-post"> ${element.data().publi} </p> 
               <button id="button${element.id}" style="display:none"> Guardar </button>   
-              <div class="iconos-edit">
+              <div class="iconos-edit show-iconos" >
                   <img class="editar-post" data-post-id="${element.id}" src="editar.png" "alt=post editar"/> 
                   <img class="borrar-post" data-post-id="${element.id}" src="eliminar.png" "alt=tachito"/>              
               </div>
             </div>
             <p class="cantidad-likes">
-                <span>23</span> 
-                <img class="huellilikes" src="huellilike.png" "alt=huella"/> 
+                
+                <img class="huellilikes" data-post-id="${element.id}" src="huellilike.png" "alt=huella"/> 
                 Huellilikes
             </p>
             `;      
         
-        
+         
         mostrarPublis.innerHTML+=divPost;
+        postEliminar()
+        editarPost()
+        // ocultandoIconos()
+
         });
 
+        //creando la vari
+
+      // Creando colección de usuarios, falta jalar name
+
+
         // borrando post
-
-        document.querySelectorAll('.borrar-post').forEach(btn => {
-          btn.addEventListener('click', (event) => {
-            // debugger
-            const postId = event.target.dataset.postId
-            deletePost(postId).then(() => {
-              console.log('se ha borrado el post con el id: ', postId)
+        function postEliminar(){
+          document.querySelectorAll('.borrar-post').forEach(btn => {
+            btn.addEventListener('click', (event) => {
+              // debugger
+              const postId = event.target.dataset.postId
+              deletePost(postId)
             })
           })
-        })
-
-        //editando post
-
-        document.querySelectorAll('.editar-post').forEach(btn => {
-          btn.addEventListener('click', (e) => {
-            console.log(e.target.dataset.postId)
-            // editPost(e.target.dataset.postId).then((doc)=>{
-      
-            const traerEditPost=document.querySelector(`#${e.target.dataset.postId}`)
-            // const task = doc.data()
-            console.log(traerEditPost)
-            traerEditPost.contentEditable = 'true';
-            traerEditPost.focus();
-
-            const btnGuardarPost=document.querySelector(`#button${e.target.dataset.postId}`)
-         
-            btnGuardarPost.style.display="block";
-            btnGuardarPost.addEventListener('click',()=>{
-              updatePost(e.target.dataset.postId,traerEditPost.textContent);
-              btnGuardarPost.style.display="none";
-            })
-            // traerEditPost.addEventListener('keyup',(e)=>{
-            //   updatePost('e.target.dataset.postId', 'keyup')
-            // })
-
-            // postform['caja'].value = doc.caja
-
-            console.log('estas editando el post')
-          //  const postId = event.target.dataset.postId
-            // editPost(postId).then(() => {
-            //   console.log('se ha editadoel post con el id: ', postId)
-            // })
-            })
-          })
+        }
         
+        //editando post
+        function editarPost (){
+          document.querySelectorAll('.editar-post').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+              console.log(e.target.dataset.postId)
+              // editPost(e.target.dataset.postId).then((doc)=>{
+        
+              const traerEditPost=document.querySelector(`#${e.target.dataset.postId}`)
+              // const task = doc.data()
+              console.log(traerEditPost)
+              traerEditPost.contentEditable = 'true';
+              traerEditPost.focus();
+
+              const btnGuardarPost=document.querySelector(`#button${e.target.dataset.postId}`)
+          
+              btnGuardarPost.style.display="block";
+              btnGuardarPost.addEventListener('click',()=>{
+                updatePost(e.target.dataset.postId,traerEditPost.textContent);
+                btnGuardarPost.style.display="none";
+              })
+              // traerEditPost.addEventListener('keyup',(e)=>{
+              //   updatePost('e.target.dataset.postId', 'keyup')
+              // })
+
+              // postform['caja'].value = doc.caja
+
+              console.log('estas editando el post')
+            //  const postId = event.target.dataset.postId
+              // editPost(postId).then(() => {
+              //   console.log('se ha editadoel post con el id: ', postId)
+              // })
+              })
+            })
+        }
+        
+          //Likes en la publicación
+          const btnLikePost=document.querySelectorAll(`#button${e.target.dataset.postId}`)
+
+
+          // function counterLike() {
+          //   const btnLikes = document.querySelectorAll('.btn-likes');
+          //   btnLikes.forEach((btnLike) => {
+          //     btnLike.addEventListener('click', async (event) => {
+          //       const elementBtnLike = event.target.closest('.btn-likes'); // elemento al que se le hace click
+          //       const idPost = elementBtnLike.dataset.id;
+          //       const docPost = await getPost(idPost); // recibe como argumento 1 id
+          //       const publication = docPost.data(); // convertirlo en 1 obj de Js
+          //       const likes = publication.likes; // array de usuarios que le dieron like
+      
+          //       if (likes.includes(currentUser.uid)) { // quita like
+          //         const filterLikes = likes.filter((idLike) => idLike !== currentUser.uid);
+          //         updatePost(idPost, { likes: filterLikes });
+          //         /* likeImg.setAttribute('src', '../img/corazon.png');
+          //         console.log(likeImg, 'dentro del if'); */
+          //       } else {
+          //         updatePost(idPost, { likes: [...likes, currentUser.uid] }); // agrega like
+          //         // likeImg.setAttribute('src', '../img/corazonActivo.png');
+          //       }
+          //     });
+          //   });
+          // }
+
 
     })
 

@@ -21,6 +21,7 @@ export default () => {
     <input class= caja id="usuario" type="text" placeholder="Nombre de Usuario" required> 
    
     <input class= caja id="password" type="password" id="caja-login" placeholder="Contraseña" required> 
+    <p id="menssage-error"></p>
     <button class="botton" id="botonRegistrar"> Registrar </button>
     
     <div class='last-line'>
@@ -38,7 +39,7 @@ export default () => {
     const registerPass = divElem.querySelector ('#password');
     const registrate = divElem.querySelector('#botonRegistrar')
     const signUpGoogle = divElem.querySelector ('#botongoogle')
-    
+    // const errorMenssage = divElem.getElementsById('message-error')
 
       registrate.addEventListener('click',(e)=> {
         e.preventDefault();
@@ -47,22 +48,34 @@ export default () => {
         let emailregValue = registerEmail.value;
         let usuarioValue = registerUsuario.value;
         let passregValue = registerPass.value; 
+        let errorMenssage = 
 
         console.log(nameValue,emailregValue,usuarioValue,passregValue);
     
-        createUserWithEmailAndPassword(auth, emailregValue, passregValue)
+        const userRegister = (email, password) => {
+          const unaPromesa = createUserWithEmailAndPassword(auth, emailregValue, passregValue)
+          return unaPromesa;
+        }
+        userRegister (emailregValue,passregValue)
         .then((userCredential) => {
-            //crear mi coleccion de usuarios , le pasare el nameValue
-            // Signed in
-            const user = userCredential.user;
-            // ...
-        })
-        .catch((error) => {
-            const errorCode = error.code;
-            const errorMessage = error.message;
-            // ..
-        });
-      })    
+          const user = userCredential.user;
+          console.log(user)
+          // agregamos el uid para poder agregarlo a la colección de usuarios
+          const userId = userCredential.user.uid;
+          console.log(userId)
+          // trayeyendo la collecion usaurio
+          // userCollection (userId, nameValue, emailregValue);
+          
+          alert(`Registro exitoso ${user.email}`);
+          emailVerification().then(() => {
+            mensaje.style.display = 'block';
+          }).catch((error) => {
+            console.log(error);
+            mensajeError.style.display = 'block';
+          });
+      });   
+       
+     })    
 
       signUpGoogle.addEventListener('click',(e)=> {
         e.preventDefault();

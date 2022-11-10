@@ -1,7 +1,11 @@
+body{
+    background-image: linear-gradient(rgba(178, 127, 181, 0.141), rgba(178, 127, 181, 0.141))
+}
+
 .image-perfil{
     width: 200px;
     height: auto;
-    align-items: ;
+    
 }
 
 .tit{
@@ -215,3 +219,4 @@ footer{
     line-height: 20px;
     text-align: center;
 }
+
